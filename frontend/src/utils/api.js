@@ -3,16 +3,18 @@ const API_BASE = import.meta.env.VITE_API_URL || '/api/index.php?route='
 
 async function request(route, options = {}) {
   const url = API_BASE + route
+  const isFormData = options.body instanceof FormData
+
   const config = {
-    headers: { 'Content-Type': 'application/json' },
     ...options,
+    headers: isFormData ? {} : { 'Content-Type': 'application/json' },
   }
 
-  if (options.body && typeof options.body === 'object' && !(options.body instanceof FormData)) {
+  if (options.body && typeof options.body === 'object' && !isFormData) {
     config.body = JSON.stringify(options.body)
   }
 
-  // Admin auth
+  // Admin auth (siempre agregar si existe)
   const adminToken = sessionStorage.getItem('admin_token')
   if (adminToken) {
     config.headers['Authorization'] = `Bearer ${adminToken}`
@@ -42,11 +44,7 @@ export const api = {
     const form = new FormData()
     form.append('archivo', file)
     form.append('cohorte_id', cohorteId)
-    return request('admin/upload-excel', {
-      method: 'POST',
-      body: form,
-      headers: { 'Authorization': `Bearer ${sessionStorage.getItem('admin_token')}` }
-    })
+    return request('admin/upload-excel', { method: 'POST', body: form })
   },
 
   generarBitacora: (participanteId, sesion) =>
