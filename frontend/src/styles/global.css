@@ -1,0 +1,184 @@
+/* Conciencia Encarnada — Ser & Fluir */
+
+:root {
+  --cream: #FBF7F0;
+  --warm-white: #FFF9F2;
+  --blush: #E8C4B8;
+  --rose: #D4A09A;
+  --gold: #C9A96E;
+  --gold-light: #E8D5A8;
+  --earth: #8B7355;
+  --deep: #3D2E2E;
+  --text: #4A3B3B;
+  --text-light: #8A7A7A;
+  --text-muted: #B5A5A0;
+
+  --font-display: 'Cormorant Garamond', Georgia, serif;
+  --font-body: 'DM Sans', -apple-system, sans-serif;
+
+  --space-xs: 0.5rem;
+  --space-sm: 1rem;
+  --space-md: 2rem;
+  --space-lg: 4rem;
+  --space-xl: 6rem;
+}
+
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+  font-weight: 300;
+  color: var(--text);
+  background: var(--cream);
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  line-height: 1.2;
+  color: var(--deep);
+}
+
+h1 { font-size: clamp(2.2rem, 5vw, 3.8rem); }
+h2 { font-size: clamp(1.6rem, 3.5vw, 2.6rem); }
+h3 { font-size: clamp(1.2rem, 2.5vw, 1.8rem); }
+
+p { max-width: 65ch; }
+
+a {
+  color: var(--earth);
+  text-decoration: none;
+  transition: color 0.3s;
+}
+a:hover { color: var(--gold); }
+
+/* Utilities */
+.container {
+  width: min(90%, 1100px);
+  margin: 0 auto;
+}
+
+.text-center { text-align: center; }
+
+/* Buttons */
+.btn {
+  display: inline-block;
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 0.9rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.9rem 2.4rem;
+  border: none;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: all 0.4s ease;
+}
+
+.btn-primary {
+  background: var(--deep);
+  color: var(--cream);
+}
+.btn-primary:hover {
+  background: var(--earth);
+  color: var(--warm-white);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--deep);
+  border: 1px solid var(--blush);
+}
+.btn-ghost:hover {
+  border-color: var(--gold);
+  color: var(--gold);
+}
+
+/* Form elements */
+input, textarea, select {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 300;
+  color: var(--text);
+  background: var(--warm-white);
+  border: 1px solid var(--blush);
+  border-radius: 2px;
+  padding: 0.8rem 1rem;
+  width: 100%;
+  transition: border-color 0.3s;
+}
+
+input:focus, textarea:focus, select:focus {
+  outline: none;
+  border-color: var(--gold);
+}
+
+label {
+  display: block;
+  font-size: 0.8rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-light);
+  margin-bottom: var(--space-xs);
+}
+
+/* Page transitions */
+.page-enter {
+  animation: fadeUp 0.6s ease both;
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Grain overlay */
+.grain::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  opacity: 0.03;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  z-index: 9999;
+}
+
+/* Bitácora content styling */
+.bitacora-content h2 {
+  font-size: 1.1rem;
+  font-family: var(--font-display);
+  font-weight: 600;
+  color: var(--earth);
+  margin-top: var(--space-md);
+  margin-bottom: var(--space-xs);
+}
+
+.bitacora-content p {
+  margin-bottom: var(--space-sm);
+  color: var(--text);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  :root {
+    --space-lg: 2.5rem;
+    --space-xl: 4rem;
+  }
+}
