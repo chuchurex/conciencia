@@ -1,7 +1,0 @@
-{
-    "name": "serfluir/conciencia-backend",
-    "description": "Backend API para Conciencia Encarnada",
-    "require": {
-        "phpoffice/phpspreadsheet": "^1.29"
-    }
-}

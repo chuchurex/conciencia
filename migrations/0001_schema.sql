@@ -1,81 +1,81 @@
--- Conciencia Encarnada - Database Schema
--- MySQL 5.7+ / MariaDB 10.3+
-
-CREATE DATABASE IF NOT EXISTS conciencia_encarnada
-  CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-
-USE conciencia_encarnada;
+-- Conciencia Encarnada - Database Schema for Cloudflare D1 (SQLite)
 
 -- Cohortes (cada versión del programa)
-CREATE TABLE cohortes (
-  id INT AUTO_INCREMENT PRIMARY KEY,
-  nombre VARCHAR(100) NOT NULL,
+CREATE TABLE IF NOT EXISTS cohortes (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  nombre TEXT NOT NULL,
   descripcion TEXT,
-  fecha_inicio DATE,
-  fecha_fin DATE,
-  total_sesiones INT DEFAULT 11,
-  activa TINYINT(1) DEFAULT 1,
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB;
+  fecha_inicio TEXT,
+  fecha_fin TEXT,
+  total_sesiones INTEGER DEFAULT 11,
+  activa INTEGER DEFAULT 1,
+  created_at TEXT DEFAULT (datetime('now'))
+);
 
 -- Participantes
-CREATE TABLE participantes (
-  id INT AUTO_INCREMENT PRIMARY KEY,
-  cohorte_id INT NOT NULL,
-  nombre VARCHAR(100) NOT NULL,
-  email VARCHAR(255) NOT NULL,
-  token_acceso VARCHAR(64) NOT NULL UNIQUE,
-  activo TINYINT(1) DEFAULT 1,
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  FOREIGN KEY (cohorte_id) REFERENCES cohortes(id),
-  UNIQUE KEY unique_email_cohorte (email, cohorte_id)
-) ENGINE=InnoDB;
+CREATE TABLE IF NOT EXISTS participantes (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  cohorte_id INTEGER NOT NULL,
+  nombre TEXT NOT NULL,
+  email TEXT NOT NULL,
+  token_acceso TEXT NOT NULL UNIQUE,
+  activo INTEGER DEFAULT 1,
+  created_at TEXT DEFAULT (datetime('now')),
+  FOREIGN KEY (cohorte_id) REFERENCES cohortes(id)
+);
+
+-- Índice único para email + cohorte
+CREATE UNIQUE INDEX IF NOT EXISTS idx_email_cohorte ON participantes(email, cohorte_id);
 
 -- Respuestas del formulario inicial (y de cada sesión)
-CREATE TABLE respuestas (
-  id INT AUTO_INCREMENT PRIMARY KEY,
-  participante_id INT NOT NULL,
-  sesion INT NOT NULL DEFAULT 1,
-  pregunta_key VARCHAR(10) NOT NULL,
-  pregunta_texto VARCHAR(500) NOT NULL,
+CREATE TABLE IF NOT EXISTS respuestas (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  participante_id INTEGER NOT NULL,
+  sesion INTEGER NOT NULL DEFAULT 1,
+  pregunta_key TEXT NOT NULL,
+  pregunta_texto TEXT NOT NULL,
   respuesta TEXT NOT NULL,
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  FOREIGN KEY (participante_id) REFERENCES participantes(id),
-  INDEX idx_participante_sesion (participante_id, sesion)
-) ENGINE=InnoDB;
+  created_at TEXT DEFAULT (datetime('now')),
+  FOREIGN KEY (participante_id) REFERENCES participantes(id)
+);
+
+-- Índice para búsqueda por participante y sesión
+CREATE INDEX IF NOT EXISTS idx_participante_sesion ON respuestas(participante_id, sesion);
 
 -- Bitácoras generadas por IA
-CREATE TABLE bitacoras (
-  id INT AUTO_INCREMENT PRIMARY KEY,
-  participante_id INT NOT NULL,
-  sesion INT NOT NULL,
+CREATE TABLE IF NOT EXISTS bitacoras (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  participante_id INTEGER NOT NULL,
+  sesion INTEGER NOT NULL,
   contenido_generado TEXT NOT NULL,
   contenido_editado TEXT,
-  estado ENUM('borrador','revisado','publicado') DEFAULT 'borrador',
-  generado_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  publicado_at TIMESTAMP NULL,
-  FOREIGN KEY (participante_id) REFERENCES participantes(id),
-  UNIQUE KEY unique_participante_sesion (participante_id, sesion)
-) ENGINE=InnoDB;
+  estado TEXT DEFAULT 'borrador' CHECK(estado IN ('borrador', 'revisado', 'publicado')),
+  generado_at TEXT DEFAULT (datetime('now')),
+  publicado_at TEXT,
+  FOREIGN KEY (participante_id) REFERENCES participantes(id)
+);
+
+-- Índice único para participante + sesión en bitácoras
+CREATE UNIQUE INDEX IF NOT EXISTS idx_bitacora_participante_sesion ON bitacoras(participante_id, sesion);
 
 -- Prompts por sesión (almacenados en DB para editarlos desde admin)
-CREATE TABLE prompts (
-  id INT AUTO_INCREMENT PRIMARY KEY,
-  sesion INT NOT NULL UNIQUE,
-  nombre VARCHAR(100) NOT NULL,
+CREATE TABLE IF NOT EXISTS prompts (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  sesion INTEGER NOT NULL UNIQUE,
+  nombre TEXT NOT NULL,
   contenido TEXT NOT NULL,
-  activo TINYINT(1) DEFAULT 1,
-  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=InnoDB;
+  activo INTEGER DEFAULT 1,
+  updated_at TEXT DEFAULT (datetime('now'))
+);
 
 -- Admins
-CREATE TABLE admins (
-  id INT AUTO_INCREMENT PRIMARY KEY,
-  email VARCHAR(255) NOT NULL UNIQUE,
-  password_hash VARCHAR(255) NOT NULL,
-  nombre VARCHAR(100),
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB;
+CREATE TABLE IF NOT EXISTS admins (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  email TEXT NOT NULL UNIQUE,
+  password_hash TEXT NOT NULL,
+  nombre TEXT,
+  created_at TEXT DEFAULT (datetime('now'))
+);
 
 -- Insertar prompt de Sesión 1
 INSERT INTO prompts (sesion, nombre, contenido) VALUES (1, 'Inicio del camino para encarnar la conciencia', '**Rol:** Eres el redactor de la **Bitácora Conciencia Encarnada**, programa de 11 sesiones orientado a transformar la vida a través de **autoconocimiento aplicado**, **integración cuerpo–conciencia** y **prácticas simples y sostenidas**.

@@ -1,0 +1,12 @@
+name = "conciencia-encarnada"
+compatibility_date = "2024-09-23"
+pages_build_output_dir = "frontend/dist"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "conciencia-db"
+database_id = "64815e97-5328-46ce-9f97-e70e5618017c"
+
+[vars]
+ADMIN_SECRET = "cambiar-en-produccion"
+# CLAUDE_API_KEY se configura como secret con: wrangler pages secret put CLAUDE_API_KEY

@@ -1,5 +1,5 @@
-// API base URL - cambiar en producción
-const API_BASE = import.meta.env.VITE_API_URL || '/api/index.php?route='
+// API base URL - Cloudflare Pages Functions
+const API_BASE = '/api/'
 
 async function request(route, options = {}) {
   const url = API_BASE + route
@@ -7,14 +7,17 @@ async function request(route, options = {}) {
 
   const config = {
     ...options,
-    headers: isFormData ? {} : { 'Content-Type': 'application/json' },
+    headers: {
+      ...(isFormData ? {} : { 'Content-Type': 'application/json' }),
+      ...options.headers,
+    },
   }
 
   if (options.body && typeof options.body === 'object' && !isFormData) {
     config.body = JSON.stringify(options.body)
   }
 
-  // Admin auth (siempre agregar si existe)
+  // Admin auth
   const adminToken = sessionStorage.getItem('admin_token')
   if (adminToken) {
     config.headers['Authorization'] = `Bearer ${adminToken}`
@@ -33,12 +36,12 @@ async function request(route, options = {}) {
 export const api = {
   // Participante
   login: (email) => request('participante/login', { method: 'POST', body: { email } }),
-  getBitacora: (token) => request(`participante/bitacora&token=${token}`),
+  getBitacora: (token) => request(`participante/bitacora?token=${token}`),
 
   // Admin
   getCohortes: () => request('admin/cohortes'),
   createCohorte: (data) => request('admin/cohortes', { method: 'POST', body: data }),
-  getParticipantes: (cohorteId) => request(`admin/participantes&cohorte_id=${cohorteId}`),
+  getParticipantes: (cohorteId) => request(`admin/participantes?cohorte_id=${cohorteId}`),
 
   uploadExcel: (file, cohorteId) => {
     const form = new FormData()
@@ -54,7 +57,7 @@ export const api = {
     request('admin/generar-todas', { method: 'POST', body: { cohorte_id: cohorteId, sesion } }),
 
   getBitacoras: (cohorteId, sesion) =>
-    request(`admin/bitacoras&cohorte_id=${cohorteId}&sesion=${sesion}`),
+    request(`admin/bitacoras?cohorte_id=${cohorteId}&sesion=${sesion}`),
 
   updateBitacora: (id, data) =>
     request('admin/bitacoras', { method: 'PUT', body: { id, ...data } }),
