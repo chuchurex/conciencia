@@ -118,13 +118,16 @@ admins (id, email, password_hash, nombre)
 **Participantes**:
 | ID | Nombre   | Email                        |
 |----|----------|------------------------------|
+| ID | Nombre   | Email                        |
+|----|----------|------------------------------|
 | 1  | Verónica | chuchurex@gmail.com          |
 | 2  | David    | david.ivaha@gmail.com        |
 | 3  | Paz      | pazita.poblete@gmail.com     |
 | 4  | Valeska  | vnaranjodaw@gmail.com        |
 | 5  | Paola    | pandrea.santibanez@gmail.com |
+| 6  | Carlos   | carlos@chuchurex.cl          |
 
-Cada participante tiene 8 respuestas (Q1-Q8) del formulario inicial.
+Cada participante tiene 8 respuestas (Q1-Q8) y bitácora de Sesión 1 publicada.
 
 ---
 
@@ -285,15 +288,19 @@ ANTHROPIC_API_KEY=sk-ant-api03-...
 
 ---
 
-## Próximos Pasos Sugeridos
+## Estado Actual
 
-1. **Cambiar ADMIN_SECRET** en producción por uno seguro
-2. **Generar bitácoras** para los 5 participantes del piloto
-3. **Configurar dominio personalizado** (ej: concienciaencarnada.com)
-4. **Agregar más prompts** para sesiones 2-11
-5. **Implementar autenticación admin** más robusta (opcional)
+- **ADMIN_SECRET**: Configurado con token seguro (40 caracteres aleatorios) — 12 feb 2026
+- **Bitácoras Sesión 1**: 6 participantes generados y publicados (5 originales + Carlos)
+- **CLAUDE_API_KEY**: Configurado como secret en Cloudflare Pages
+
+## Próximos Pasos Pendientes
+
+1. **Configurar dominio personalizado** (ej: concienciaencarnada.com)
+2. **Agregar más prompts** para sesiones 2-11
+3. **Implementar autenticación admin** más robusta (opcional)
 
 ---
 
-*Documento generado el 10 de febrero de 2026*
+*Documento generado el 10 de febrero de 2026 · Actualizado el 12 de febrero de 2026*
 *Implementación realizada con Claude Code*

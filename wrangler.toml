@@ -7,6 +7,4 @@ binding = "DB"
 database_name = "conciencia-db"
 database_id = "64815e97-5328-46ce-9f97-e70e5618017c"
 
-[vars]
-ADMIN_SECRET = "cambiar-en-produccion"
-# CLAUDE_API_KEY se configura como secret con: wrangler pages secret put CLAUDE_API_KEY
+# Secrets (ADMIN_SECRET, CLAUDE_API_KEY) se configuran con: wrangler pages secret put

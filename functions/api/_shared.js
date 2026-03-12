@@ -12,6 +12,7 @@ export function jsonResponse(data, status = 200) {
 export function corsHeaders(request) {
   const origin = request.headers.get('Origin') || '';
   const allowedOrigins = [
+    'https://conciencia.seryfluir.cl',
     'https://conciencia-encarnada.pages.dev',
     'http://localhost:5173',
     'http://localhost:4173',
