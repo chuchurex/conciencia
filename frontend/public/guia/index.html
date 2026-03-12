@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Guia de prueba | Conciencia Encarnada</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --cream: #FBF7F0;
+      --warm-white: #FFF9F2;
+      --blush: #E8C4B8;
+      --rose: #D4A09A;
+      --gold: #C9A96E;
+      --gold-light: #E8D5A8;
+      --earth: #8B7355;
+      --deep: #3D2E2E;
+      --text: #4A3B3B;
+      --text-light: #8A7A7A;
+    }
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'DM Sans', -apple-system, sans-serif;
+      font-weight: 300;
+      color: var(--text);
+      background: var(--cream);
+      line-height: 1.7;
+      padding: 2rem 1rem;
+    }
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    h1 {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-weight: 400;
+      font-size: 2.2rem;
+      color: var(--deep);
+      margin-bottom: 0.5rem;
+    }
+    h2 {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-weight: 400;
+      font-size: 1.5rem;
+      color: var(--deep);
+      margin-top: 2.5rem;
+      margin-bottom: 1rem;
+      padding-bottom: 0.4rem;
+      border-bottom: 1px solid var(--blush);
+    }
+    p.subtitle {
+      color: var(--text-light);
+      margin-bottom: 2rem;
+    }
+    .card {
+      background: var(--warm-white);
+      border: 1px solid var(--blush);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1rem;
+    }
+    .card h3 {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-weight: 600;
+      font-size: 1.1rem;
+      color: var(--deep);
+      margin-bottom: 0.3rem;
+    }
+    a {
+      color: var(--gold);
+      text-decoration: none;
+      border-bottom: 1px solid var(--gold-light);
+      transition: color 0.2s;
+    }
+    a:hover {
+      color: var(--earth);
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 0.5rem;
+    }
+    th, td {
+      text-align: left;
+      padding: 0.6rem 0.8rem;
+      border-bottom: 1px solid var(--blush);
+      font-size: 0.95rem;
+    }
+    th {
+      font-weight: 500;
+      color: var(--earth);
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .secret-box {
+      background: var(--deep);
+      color: var(--gold-light);
+      font-family: monospace;
+      font-size: 0.95rem;
+      padding: 0.8rem 1rem;
+      border-radius: 8px;
+      word-break: break-all;
+      cursor: pointer;
+      position: relative;
+    }
+    .secret-box::after {
+      content: 'click para copiar';
+      position: absolute;
+      right: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 0.75rem;
+      color: var(--text-light);
+      font-family: 'DM Sans', sans-serif;
+    }
+    .secret-box.copied::after {
+      content: 'copiado!';
+      color: var(--gold);
+    }
+    .badge {
+      display: inline-block;
+      background: var(--gold-light);
+      color: var(--earth);
+      font-size: 0.75rem;
+      font-weight: 500;
+      padding: 0.15rem 0.6rem;
+      border-radius: 20px;
+      margin-left: 0.5rem;
+      vertical-align: middle;
+    }
+    .link-list {
+      list-style: none;
+    }
+    .link-list li {
+      padding: 0.6rem 0;
+      border-bottom: 1px solid rgba(232,196,184,0.4);
+    }
+    .link-list li:last-child { border-bottom: none; }
+    .link-label {
+      display: block;
+      font-size: 0.8rem;
+      color: var(--text-light);
+      margin-bottom: 0.15rem;
+    }
+    .note {
+      background: rgba(201,169,110,0.1);
+      border-left: 3px solid var(--gold);
+      padding: 0.8rem 1rem;
+      border-radius: 0 8px 8px 0;
+      font-size: 0.9rem;
+      color: var(--earth);
+      margin-top: 1rem;
+    }
+    @media (max-width: 600px) {
+      h1 { font-size: 1.7rem; }
+      table { font-size: 0.85rem; }
+      th, td { padding: 0.4rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Conciencia Encarnada</h1>
+    <p class="subtitle">Guia de prueba para el cliente &middot; MVP Piloto 2025</p>
+
+    <!-- ENLACES -->
+    <h2>Enlaces de la plataforma</h2>
+    <div class="card">
+      <ul class="link-list">
+        <li>
+          <span class="link-label">Pagina de inicio</span>
+          <a href="https://conciencia.seryfluir.cl" target="_blank">conciencia.seryfluir.cl</a>
+        </li>
+        <li>
+          <span class="link-label">Login participantes</span>
+          <a href="https://conciencia.seryfluir.cl/entrar" target="_blank">conciencia.seryfluir.cl/entrar</a>
+        </li>
+        <li>
+          <span class="link-label">Panel de administracion</span>
+          <a href="https://conciencia.seryfluir.cl/admin" target="_blank">conciencia.seryfluir.cl/admin</a>
+        </li>
+      </ul>
+    </div>
+
+    <!-- CLAVE ADMIN -->
+    <h2>Clave de administrador</h2>
+    <p style="margin-bottom:0.8rem; font-size:0.9rem;">Usa esta clave para entrar al panel de administracion:</p>
+    <div class="secret-box" id="secret" onclick="copySecret()">GslVEHcxzO7zXTdWpZ5yPlqrDmabo3v9K9lXcyW7</div>
+
+    <!-- PARTICIPANTES -->
+    <h2>Participantes del piloto</h2>
+    <div class="card" style="overflow-x:auto;">
+      <table>
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Email (login)</th>
+            <th>Sesion 1</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Carlos</td>
+            <td>carlos@chuchurex.cl</td>
+            <td><span class="badge">publicado</span></td>
+          </tr>
+          <tr>
+            <td>David</td>
+            <td>david.ivaha@gmail.com</td>
+            <td><span class="badge">publicado</span></td>
+          </tr>
+          <tr>
+            <td>Paola</td>
+            <td>pandrea.santibanez@gmail.com</td>
+            <td><span class="badge">publicado</span></td>
+          </tr>
+          <tr>
+            <td>Paz</td>
+            <td>pazita.poblete@gmail.com</td>
+            <td><span class="badge">publicado</span></td>
+          </tr>
+          <tr>
+            <td>Valeska</td>
+            <td>vnaranjodaw@gmail.com</td>
+            <td><span class="badge">publicado</span></td>
+          </tr>
+          <tr>
+            <td>Veronica</td>
+            <td>chuchurex@gmail.com</td>
+            <td><span class="badge">publicado</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="note">
+      Para probar como participante, entra a <a href="https://conciencia.seryfluir.cl/entrar" target="_blank">/entrar</a> e ingresa cualquiera de los emails de arriba. Veras la bitacora personalizada de Sesion 1.
+    </div>
+
+    <!-- GUIAS -->
+    <h2>Guias de referencia</h2>
+    <div class="card">
+      <ul class="link-list">
+        <li>
+          <span class="link-label">Referencia rapida</span>
+          <a href="/guia/claude-code.html">Guia Rapida de Claude Code CLI</a>
+        </li>
+      </ul>
+    </div>
+
+    <!-- FLUJO -->
+    <h2>Como funciona</h2>
+    <div class="card">
+      <ol style="padding-left:1.2rem; font-size:0.95rem;">
+        <li style="margin-bottom:0.5rem;"><strong>Participante</strong> entra con su email &rarr; ve su bitacora personalizada</li>
+        <li style="margin-bottom:0.5rem;"><strong>Admin</strong> entra con la clave &rarr; puede generar, editar y publicar bitacoras</li>
+        <li style="margin-bottom:0.5rem;">Las bitacoras se generan con <strong>IA (Claude)</strong> basandose en las respuestas del formulario inicial</li>
+        <li>El admin puede subir un <strong>Excel</strong> con nuevos participantes y sus respuestas</li>
+      </ol>
+    </div>
+
+  </div>
+
+  <script>
+    function copySecret() {
+      const el = document.getElementById('secret');
+      navigator.clipboard.writeText(el.textContent.trim());
+      el.classList.add('copied');
+      setTimeout(() => el.classList.remove('copied'), 2000);
+    }
+  </script>
+</body>
+</html>
